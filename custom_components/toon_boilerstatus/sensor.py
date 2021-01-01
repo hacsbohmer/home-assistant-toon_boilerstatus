@@ -15,8 +15,18 @@ sensor:
       - boilerouttemp
       - boilerpressure
       - boilermodulationlevel
+      - boileroperationmode
+      - boilerinternalsetpoint
+      - boilerhotwaterburnerhours
+      - boilerburnerhours
+      - boilerpumpstarts
+      - boilersuccessfullburnerstarts
+      - boilerfailedburnerstarts
+      - boilerhotwaterburnerstarts
+      - boilerheatingfactor
       - roomtemp
       - roomtempsetpoint
+      - thermostatoffset
 """
 import logging
 from datetime import timedelta
@@ -48,6 +58,16 @@ SENSOR_TYPES = {
     'boilermodulationlevel': ['Boiler Modulation', '%', 'mdi:fire'],
     'roomtemp': ['Room Temp', '°C', 'mdi:thermometer'],
     'roomtempsetpoint': ['Room Temp SetPoint', '°C', 'mdi:thermometer'],
+    'boileroperationmode': ['Boiler Operation Mode', 'Mode', 'mdi:numeric'],
+    'boilerinternalsetpoint': ['Boiler Internal Setpoint', '°C', 'mdi:thermometer'],
+    'thermostatoffset': ['Thermostat Offset', '°C', 'mdi:thermometer'],
+    'boilerhotwaterburnerstarts': ['Boiler Hot Water Burner Hours', 'Hours', 'mdi:clock'],
+    'boilerburnerhours': ['Boiler Burner Hours', 'Hours', 'mdi:clock'],
+    'boilerpumpstarts': ['Boiler Pump Starts', 'Starts', 'mdi:numeric'],
+    'boilersuccessfullburnerstarts': ['Boiler Successfull Burner Starts', 'Starts', 'mdi:numeric'],
+    'boilerfailedburnerstarts': ['Boiler Failed Burner Starts', 'Starts', 'mdi:numeric'],
+    'boilerhotwaterburnerstarts': ['Boiler Hot Water Burner Starts', 'Starts', 'mdi:numeric'],
+    'boilerheatingfactor': ['Boiler Heating Factor', 'Factor', 'mdi:numeric'],
 }
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
@@ -206,5 +226,55 @@ class ToonBoilerStatusSensor(Entity):
               if 'roomTempSetpoint' in boiler:
                 if boiler["roomTempSetpoint"] is not None:
                   self._state = float(boiler["roomTempSetpoint"])
+
+            elif self._type == 'boileroperationmode':
+              if 'boileroperationmode' in boiler:
+                if boiler["boileroperationmode"] is not None:
+                  self._state = float(boiler["boileroperationmode"])
+
+            elif self._type == 'boilerinternalsetpoint':
+              if 'boilerinternalsetpoint' in boiler:
+                if boiler["boilerinternalsetpoint"] is not None:
+                  self._state = float(boiler["boilerinternalsetpoint"])
+
+            elif self._type == 'thermostatoffset':
+              if 'thermostatoffset' in boiler:
+                if boiler["thermostatoffset"] is not None:
+                  self._state = float(boiler["thermostatoffset"])
+
+            elif self._type == 'boilerhotwaterburnerstarts':
+              if 'boilerhotwaterburnerstarts' in boiler:
+                if boiler["boilerhotwaterburnerstarts"] is not None:
+                  self._state = float(boiler["boilerhotwaterburnerstarts"])
+
+            elif self._type == 'boilerburnerhours':
+              if 'boilerburnerhours' in boiler:
+                if boiler["boilerburnerhours"] is not None:
+                  self._state = float(boiler["boilerburnerhours"])
+
+            elif self._type == 'boilerpumpstarts':
+              if 'boilerpumpstarts' in boiler:
+                if boiler["boilerpumpstarts"] is not None:
+                  self._state = float(boiler["boilerpumpstarts"])
+
+            elif self._type == 'boilersuccessfullburnerstarts':
+              if 'boilersuccessfullburnerstarts' in boiler:
+                if boiler["boilersuccessfullburnerstarts"] is not None:
+                  self._state = float(boiler["boilersuccessfullburnerstarts"])
+
+            elif self._type == 'boilerfailedburnerstarts':
+              if 'boilerfailedburnerstarts' in boiler:
+                if boiler["boilerfailedburnerstarts"] is not None:
+                  self._state = float(boiler["boilerfailedburnerstarts"])
+
+            elif self._type == 'boilerhotwaterburnerstarts':
+              if 'boilerhotwaterburnerstarts' in boiler:
+                if boiler["boilerhotwaterburnerstarts"] is not None:
+                  self._state = float(boiler["boilerhotwaterburnerstarts"])
+
+            elif self._type == 'boilerheatingfactor':
+              if 'boilerheatingfactor' in boiler:
+                if boiler["boilerheatingfactor"] is not None:
+                  self._state = float(boiler["boilerheatingfactor"])
 
             _LOGGER.debug("Device: {} State: {}".format(self._type, self._state))
